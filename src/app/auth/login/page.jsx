@@ -10,6 +10,7 @@ import {Input} from "@nextui-org/react";
 import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from "next/navigation";
+import axios from 'axios';
 
 const Login = () => {
 
@@ -34,11 +35,17 @@ const Login = () => {
       setError(response.error)
       toast.error(response.error)
     }
-    
+
+    const responseUser = await axios.get(`http://localhost:3000/api/userData/${data.email}`);
+
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('userInfo', JSON.stringify(responseUser.data))
+    }
+  
   })
 
   return (
-    <div className="flex  items-center justify-center bg-slate-950 h-screen w-screen">
+    <div className="flex  items-center justify-center  h-screen w-screen">
 
       <form onSubmit={onSubmit} className=" mt-20  w-1/4 ">
 
@@ -57,7 +64,15 @@ const Login = () => {
           />
         )}
 
-          <p className="text-white font-5xl text-center mb-2">BIENVENIDO A LUQUIANDO BARBER</p>
+                <div className="flex flex-col items-center mb-2 w-full">
+                    <img
+                        src='https://i.postimg.cc/Bbg8bzNz/Whats-App-Image-2023-11-30-at-21-48-11.png'
+                        width={100}
+                        height={100}
+                    />
+                    
+                    <h3 className="text-white text-center mb-2">BIENVENIDO A LUQUIANDO BARBER</h3>
+                </div>
 
           <Input type="email" label="Email" placeholder="Ingresa tu email" 
               {...register("email",

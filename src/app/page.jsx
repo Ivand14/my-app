@@ -1,8 +1,12 @@
+import Particles from '@/components/particles/paticles'
 import React from 'react'
+import {Button} from "@nextui-org/react";
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <div>
+      <Particles/>
+    </div>
   )
 }
 

@@ -25,8 +25,6 @@ const authOptions = {
 
                 if(!matchPass)  throw new Error('Contraseña incorrecta')
 
-                console.log('user',userFound)
-
                 return{
                     id: userFound.id,
                     name: userFound.name,

@@ -38,13 +38,23 @@ const registerPage = () => {
 
 
     return (
-        <div className="flex  items-center justify-center bg-slate-950 h-screen w-screen">
+        <div className="flex  items-center justify-center  h-screen w-screen">
             
-            <form onSubmit={onSubmit} className=" mt-20  w-1/4 ">
-
-                <p className="text-white font-5xl text-center mb-2">BIENVENIDO A LUQUIANDO BARBER</p>
-                <p className="text-white font-2xl text-center mb-2">Registrate para ingresar</p>
+            <form onSubmit={onSubmit} className=" mt-15  w-1/4 ">
                 
+                <div className="flex flex-col items-center mb-2 w-full">
+                    <img
+                        src='https://i.postimg.cc/Bbg8bzNz/Whats-App-Image-2023-11-30-at-21-48-11.png'
+                        width={100}
+                        height={100}
+                    />
+                    
+                    <h3 className="text-white text-center mb-2">BIENVENIDO A LUQUIANDO BARBER</h3>
+                </div>
+                
+                {errors.email && (
+                    <span className="text-red-500 p-1 mb-5 text-sm">{errors.name.message}</span>
+                )}
                 <Input type="name" label="Nombre" placeholder="Ingresa tu Nombre" 
                     {...register("name",
                     {required:
@@ -53,10 +63,10 @@ const registerPage = () => {
                     })}
                     className='mb-2'
                 />
-                {errors.email && (
-                    <span className="text-red-500 p-1 mb-5 text-sm">{errors.name.message}</span>
-                )}
                 
+                {errors.email && (
+                    <span className="text-red-500 p-1 mb-2 text-sm">{errors.email.message}</span>
+                )}
                 <Input type="email" label="Email" placeholder="Ingresa tu email" 
                     {...register("email",
                     {required:
@@ -65,10 +75,10 @@ const registerPage = () => {
                     })}
                     className='mb-2'
                 />
-                {errors.email && (
-                    <span className="text-red-500 p-1 mb-2 text-sm">{errors.email.message}</span>
-                )}
                 
+                {errors.email && (
+                    <span className="text-red-500 p-1 mb-2 text-sm">{errors.password.message}</span>
+                )}
                 <Input type="password" label="Password" placeholder="Ingresa tu Password" 
                     {...register("password",
                     {required:
@@ -77,10 +87,10 @@ const registerPage = () => {
                     })} 
                     className='mb-2'
                 />
-                {errors.email && (
-                    <span className="text-red-500 p-1 mb-2 text-sm">{errors.password.message}</span>
-                )}
                 
+                {errors.email && (
+                    <span className="text-sm text-red-500 p-1 mb-2">{errors.confirmPassword.message}</span>
+                )}
                 <Input type="password" label="Confirmar password" placeholder="Confirma tu contraseña" 
                     {...register("confirmPassword",
                     {required:
@@ -89,9 +99,6 @@ const registerPage = () => {
                     })} 
                     className='mb-2'
                 />
-                {errors.email && (
-                    <span className="text-sm text-red-500 p-1 mb-2">{errors.confirmPassword.message}</span>
-                )}
                 
                 <Button color="primary" variant="shadow" type='submit' className="w-full">
                     Registrarse

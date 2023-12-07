@@ -3,3 +3,17 @@
 @tailwind utilities;
 
 
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  p,h3{
+      @apply text-lg;
+  }
+  body{
+    @apply bg-black h-screen w-screen;
+  }
+}
