@@ -1,18 +1,27 @@
 import {NextResponse} from 'next/server'
-import mercadopago from 'mercadopago'
+import prisma from '@/libs/prisma'
 
-export async function GET(request){
-    
-    const data = request.json()
+export async function  POST(request){
 
-    const{paymentId} = data
+    const userData = await request.json()
+
+    const{description,hour,cost,day,userId} = userData
     
-    try{
+    if(userData){
+        await prisma.shift.create({
+                data:{
+                service:description,
+                hour,
+                cost:Number(cost),
+                day,
+                userId,
+                pay:true
+            }
+        })
+
+        return NextResponse.json('Reserva Creada',{status:200})
         
-        mercadopago.payment.get(paymentId)
-
-    }catch(error){
-
     }
 
+    return NextResponse.json({status:200})
 }

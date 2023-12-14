@@ -11,9 +11,7 @@ const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const sessionOut = () =>{
-        if (typeof window !== 'undefined') {
-            sessionStorage.removeItem('userInfo')
-        }
+        localStorage.clear()
     }
 
     const menuItems = [

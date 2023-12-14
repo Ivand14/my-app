@@ -1,29 +1,25 @@
-import { NextResponse } from 'next/server';
-import mercadopago from 'mercadopago';
-import prisma from '@/libs/prisma';
+import {NextResponse} from 'next/server'
+import mercadopago from "mercadopago";
 
-export async function POST(request) {
-
-    const savedUserInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-    console.log(savedUserInfo)
+export async function POST(request){
 
     try {
-        
-        const payment = await request.json();        
+        const notifications = await request.json()
 
 
-        if (payment.type === "payment") {
-            const data = await mercadopago.payment.findById(payment.data.id);
-            console.log('DATA STATUS',data.body.status);
-            // if(data.body.status === 'approved'){
-            //     await prisma.shift.update({where:{userId},data:{pay:true}})
-            // }
+        if(notifications.type === 'payment'){
+            const mpResponse = await mercadopago.payment.findById(notifications.data.id)
+            const statusApproved = mpResponse.body.status
+
+            if(statusApproved === 'approved') return NextResponse.json({status:204})
         }
 
-        return NextResponse.json(data.body.status, { status: 200 });
+        return NextResponse.json({status:200})
         
     } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: 'Ocurrió un error en el pago' }, { status: 500 });
+        console.log(error)
+        return NextResponse.json(error,{status:500})
     }
+
+    
 }

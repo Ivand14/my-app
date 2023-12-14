@@ -38,10 +38,10 @@ const Login = () => {
 
     const responseUser = await axios.get(`http://localhost:3000/api/userData/${data.email}`);
 
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('userInfo', JSON.stringify(responseUser.data))
-    }
-  
+    console.log(responseUser)
+
+    localStorage.setItem('userInfo', JSON.stringify(responseUser.data))
+
   })
 
   return (

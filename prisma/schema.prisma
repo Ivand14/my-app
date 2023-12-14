@@ -21,9 +21,9 @@ model user {
 
 model shift{
   id String @id @default(uuid())
-  hour Int 
+  hour String 
   day String 
-  pay Boolean @default(false)
+  pay Boolean @default(false) 
   cost Int
   service String
   user user @relation(fields: [userId],references: [id])

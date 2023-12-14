@@ -2,8 +2,11 @@ import NavBar from "@/components/navbar/Navbar";
 
 export default function Layout({children}){
     return(
-            <NavBar>
+            // <NavBar>
+            // </NavBar>
+            <div>
+
                 {children}
-            </NavBar>
+            </div>
     )
 }
