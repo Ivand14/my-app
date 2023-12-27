@@ -6,7 +6,7 @@ import {Button} from "@nextui-org/react";
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-const Mercadopago = ({description,cost}) => {
+const Mercadopago = ({description,cost,loading}) => {
 
 
 
@@ -18,9 +18,8 @@ const Mercadopago = ({description,cost}) => {
         }
 
         try {
-            
+            loading(true)
             const responseOrder = await axios.post('http://localhost:3000/api/mercadopago/createOrder',service)
-            
             const data = responseOrder.data.response.init_point
             window.location.href = data
             

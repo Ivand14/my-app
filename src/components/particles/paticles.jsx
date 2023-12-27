@@ -1,9 +1,11 @@
 "use client"
-import { useCallback } from 'react';
+
+import { useCallback, useState } from 'react';
+
+import { Button } from '@nextui-org/react';
 import { Particles } from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 import { particlesOptions } from './particlesConfig';
-import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 
 const ParticlesComponent = () => {
@@ -15,6 +17,21 @@ const ParticlesComponent = () => {
 
     const router = useRouter()
 
+    const[isLogin,setIsLogin] = useState(false)
+    const[isRegister,setIsRegister]= useState(false)
+
+    const login = () =>{
+        setIsLogin(true)
+        router.push('/auth/login')
+    }
+
+    const register = () =>{
+        setIsRegister(true)
+        router.push('/auth/register')
+    }
+
+
+    
 
     return (
         <div className='relative w-full h-screen flex justify-center items-center'>
@@ -26,8 +43,18 @@ const ParticlesComponent = () => {
             className='absolute inset-0'
         />
         <div className='mt-80 z-10 flex gap-5'>
-            <Button variant='shadow' onClick={()=>router.push('/auth/login')}>Iniciar sesión</Button>
-            <Button variant='shadow' onClick={()=>router.push('/auth/register')}>Registrarse</Button>
+            {
+                !isLogin ? 
+                    <Button variant='shadow' onClick={login}>Iniciar sesión</Button>
+                :
+                    <Button variant='shadow' isLoading>Cargando</Button>
+            }
+            {
+                !isRegister ? 
+                    <Button variant='shadow' onClick={register}>Registrarse</Button>
+                :
+                    <Button variant='shadow' isLoading>Cargando</Button>
+            }
         </div>
         </div>
     );

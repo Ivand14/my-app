@@ -1,38 +1,46 @@
+import React, { useEffect, useState } from 'react'
 import {Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/react";
 
-import React from 'react'
+import Spinners from '../Spinner/Spinner';
 
-const Reservs = () => {
+const Reservs = ({payData}) => {
+
+    const[isLoading,setIsLoading] = useState(true)
+
+
+    useEffect(() => {
+
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000);
+
+    }, [])
+    
     return (
-        <div  className="mt-10 w-full" >
-            <Table isStriped aria-label="Example static collection table">
+        <div  className="mt-10 w-full px-3" >
+            <Table aria-label="Example empty table">
                 <TableHeader>
-                <TableColumn>NAME</TableColumn>
-                <TableColumn>ROLE</TableColumn>
-                <TableColumn>STATUS</TableColumn>
+                <TableColumn>DESCRIPCION</TableColumn>
+                <TableColumn>DIA</TableColumn>
+                <TableColumn>HORA</TableColumn>
+                <TableColumn>COSTO</TableColumn>
+                <TableColumn>PAGADO</TableColumn>
                 </TableHeader>
-                <TableBody>
-                <TableRow key="1">
-                    <TableCell>Tony Reichert</TableCell>
-                    <TableCell>CEO</TableCell>
-                    <TableCell>Active</TableCell>
-                </TableRow>
-                <TableRow key="2">
-                    <TableCell>Zoey Lang</TableCell>
-                    <TableCell>Technical Lead</TableCell>
-                    <TableCell>Paused</TableCell>
-                </TableRow>
-                <TableRow key="3">
-                    <TableCell>Jane Fisher</TableCell>
-                    <TableCell>Senior Developer</TableCell>
-                    <TableCell>Active</TableCell>
-                </TableRow>
-                <TableRow key="4">
-                    <TableCell>William Howard</TableCell>
-                    <TableCell>Community Manager</TableCell>
-                    <TableCell>Vacation</TableCell>
-                </TableRow>
-                </TableBody>
+                {isLoading ? 
+                    <TableBody emptyContent={<Spinners/>}>{[]}</TableBody>
+                    : 
+                    <TableBody>
+                        {payData.map((pay, index) => (
+                                <TableRow key={index}>
+                                    <TableCell>{pay.service}</TableCell>
+                                    <TableCell>{pay.day}</TableCell>
+                                    <TableCell>{pay.hour}</TableCell>
+                                    <TableCell>{pay.cost}$</TableCell>
+                                    <TableCell>{pay.pay ? 'Si' : 'No'}</TableCell>
+                                </TableRow>
+                        ))}
+                    </TableBody>
+                }
             </Table>
         </div>
     )

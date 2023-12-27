@@ -7,7 +7,7 @@ export async function POST(request){
 
     
     mercadopago.configure({
-        access_token:'TEST-1084855897201649-120607-c094eb19fa4169fc5951ac0ca2c63725-832461865'
+        access_token:process.env.MERCADOPAGO_ACCESSTOKEN
     })
 
     try {

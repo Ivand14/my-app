@@ -1,31 +1,32 @@
 "use client"
 
 import {Button, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle} from "@nextui-org/react";
+import React, { useState } from 'react'
 
 import NextLink from 'next/link'
-import React from 'react'
 import {signOut} from 'next-auth/react'
 
 const NavBar = () => {
 
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const[isOut,setIsOut]= useState(false)
 
     const sessionOut = () =>{
+        setIsOut(true)
         localStorage.clear()
     }
 
-    const menuItems = [
-        'Mis reservas',
-        'Nueva Reserva'
-    ];
+    const isAdmin = JSON.parse(localStorage.getItem('userInfo'))
+
 
 return (
     
-    <div>
+    <div className='flex-col'>
         <Navbar
-        isBordered
-        isMenuOpen={isMenuOpen}
-        onMenuOpenChange={setIsMenuOpen}
+            isBordered
+            isMenuOpen={isMenuOpen}
+            onMenuOpenChange={setIsMenuOpen}
+            className="flex flex-col"
         >
         <NavbarContent className="sm:hidden" justify="center">
             <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
@@ -54,43 +55,52 @@ return (
         </NavbarContent>
 
         <NavbarContent justify="end" className="hidden w-full sm:flex gap-4 ">
-            <NavbarItem >
+                <NavbarItem >
                     <NextLink color="foreground" href="/dashboard">
-                        Mis Reservas
+                        {isAdmin?.admin === true ? 'Reservaciones': 'Mis Reservas'}
                     </NextLink>
                 </NavbarItem>
                 <NavbarItem >
                     <NextLink href="/Reserv" aria-current="page">
-                        Nueva Reserva
+                    {isAdmin?.admin === true ? 'Clientes': 'Nueva Reserva'}
                     </NextLink>
                 </NavbarItem>
-                <NavbarItem>
-                <NextLink color="foreground" href="#">
-                    Nosotros
-                </NextLink>
-            </NavbarItem>
+
             <NavbarItem>
-            <Button  color="danger" variant='ghost' onClick={()=> {signOut(),sessionOut()}}>
-                Sign out
-            </Button>
+                {!isOut ? 
+                    <Button  color="danger" variant='ghost' onClick={()=> {signOut(),sessionOut()}}>
+                        Cerrar sesión
+                    </Button>
+                    :
+                    <Button  color="danger" variant='ghost' isLoading>
+                        Saliendo
+                    </Button>
+                }
             </NavbarItem>
         </NavbarContent>
 
         <NavbarMenu>
-            {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-                <Link
-                className="w-full"
-                color={
-                    index === 2 ? "warning" : index === menuItems.length - 1 ? "danger" : "foreground"
+            <NavbarItem >
+                    <NextLink color="foreground" href="/dashboard">
+                        {isAdmin?.admin === true ? 'Reservaciones': 'Mis Reservas'}
+                    </NextLink>
+            </NavbarItem>
+            <NavbarItem >
+                    <NextLink href="/Reserv" aria-current="page">
+                    {isAdmin?.admin === true ? 'Clientes': 'Nueva Reserva'}
+                    </NextLink>
+            </NavbarItem>
+            <NavbarItem>
+                {!isOut ? 
+                    <Button  color="danger" variant='ghost' onClick={()=> {signOut(),sessionOut()}}>
+                        Cerrar sesión
+                    </Button>
+                    :
+                    <Button  color="danger" variant='ghost' isLoading>
+                        Saliendo
+                    </Button>
                 }
-                href="#"
-                size="lg"
-                >
-                {item}
-                </Link>
-            </NavbarMenuItem>
-            ))}
+            </NavbarItem>
         </NavbarMenu>
         </Navbar>
     </div>

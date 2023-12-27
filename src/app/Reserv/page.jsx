@@ -4,12 +4,14 @@ import "react-step-progress-bar/styles.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 import {Button, Input, Select, SelectItem} from "@nextui-org/react";
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from "@nextui-org/react";
 import { ProgressBar, Step } from "react-step-progress-bar";
 import React, { useEffect, useState } from 'react'
 import {Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/react";
 import { ToastContainer, toast } from 'react-toastify';
 
 import Calendary from "@/components/calendar/Calendar";
+import { Clients } from "@/components/tableClients/Clients";
 import Mercadopago from "@/components/mercadopago/Mercadopago";
 import NavBar from '@/components/navbar/Navbar';
 import axios from "axios";
@@ -20,6 +22,19 @@ const Reserv = () => {
     const [IsProgress,setIsProgress] = useState(0)
 
     const[statusPay,setStatusPay] = useState('')
+
+    const[loading,setLoading] = useState(false)
+
+    const[reservedHours,setReserverHours] = useState({})
+
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const [backdrop, setBackdrop] = React.useState('blur')
+
+
+    const handleOpen = (backdrop) => {
+        setBackdrop(backdrop)
+        onOpen();
+    }
     
     
     const [selectedServices,setSelectedServices] = useState({
@@ -45,6 +60,10 @@ const Reserv = () => {
 
     };
 
+    const goBack = () => {
+        setIsProgress(0)
+    }
+
     const finishBuy = async() => {
         const successOrder = await axios.post('http://localhost:3000/api/mercadopago/success',selectedServices)
         if(successOrder.status === 200){
@@ -52,7 +71,7 @@ const Reserv = () => {
             localStorage.removeItem('progress')
             
             setIsProgress(0)
-            router.push('/Reserv')
+            router.push('/dashboard')
             setStatusPay('')
 
             toast.success('Reserva exitosa!')
@@ -99,10 +118,27 @@ const Reserv = () => {
 
         setSelectedServices((prevState) => ({ ...prevState, cost }));
 
+        const getHours = async () => {
+            const response = await axios.get('http://localhost:3000/api/getHours');
+            const hours = response.data;
+    
+            const updatedHours =  hours.reduce((acc, hour) => {
+                const { day, hour: reservedHours } = hour;
+                if (!acc[day]) {
+                    acc[day] = [reservedHours];
+                } else {
+                    acc[day].push(reservedHours);
+                }
+                return acc;
+            }, {});
+    
+            setReserverHours(updatedHours);
+        };
+    
+        getHours();
         
     }, [selectedServices.description]);
     
-
     
 
     useEffect(()=>{
@@ -137,7 +173,7 @@ const Reserv = () => {
     
     
 
-
+    const isAdmin = JSON.parse(localStorage.getItem('userInfo'))
     
     
     
@@ -158,8 +194,12 @@ const Reserv = () => {
                     theme="dark"
                 />
             }
-            <div className="flex justify-between p-4 mt-5">
-                <div className='flex flex-col justify-center  bg-white rounded-md m-4 w-3/5 flex'>
+
+            {isAdmin.admin === true ?
+                <Clients/>
+                    :
+                <div className="flex justify-between p-4 mt-5 ">
+                <div className='flex flex-col justify-center  bg-white rounded-md m-4 w-full flex'>
                     {IsProgress === 0 && (
                         <div className='flex gap items-center p-4'>
                             <img src="/icons/reserv.svg" width="30"/>
@@ -212,7 +252,7 @@ const Reserv = () => {
                         </Step>
                     </ProgressBar>
                 </div>
-                <div className="w-full flex items-center justify-center">
+                <div className=" flex items-center justify-center max-[951px]:flex-col">
                     {
                         IsProgress === 0 && (
                             <>
@@ -228,6 +268,46 @@ const Reserv = () => {
                                         </SelectItem>
                                         ))}
                                     </Select>
+                                    
+                                    <div className="flex items-center">
+                                        <Input
+                                            isDisabled
+                                            type="text"
+                                            placeholder="--/--/--"
+                                            className="max-w-xs p-4"
+                                            value={selectedServices.day}
+                                        />
+
+                                    <>
+                                        <div className="flex flex-wrap gap-3">
+                                            <Button  
+                                                variant="light" 
+                                                onPress={() => handleOpen('blur')}
+                                                className="capitalize"
+                                            >
+                                            <img src="/icons/calendar.svg" width="30"/>
+                                            </Button>
+                                        </div>
+                                        <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}>
+                                            <ModalContent>
+                                            {(onClose) => (
+                                                <>
+                                                <ModalHeader className="flex flex-col gap-1">Selecciona una fecha</ModalHeader>
+                                                <ModalBody>
+                                                    <Calendary setSelectedServices={setSelectedServices}/>
+                                                </ModalBody>
+                                                <ModalFooter>
+                                                    <Button color="danger" variant="light" onPress={onClose}>
+                                                    Close
+                                                    </Button>
+                                                </ModalFooter>
+                                                </>
+                                            )}
+                                            </ModalContent>
+                                        </Modal>
+                                        </>
+                                        
+                                    </div>
 
                                     <Select 
                                         label={localStorage.getItem('services') ? selectedServices.hour : 'Seleccionar hora' }
@@ -235,20 +315,16 @@ const Reserv = () => {
                                         value={selectedServices.hour}
                                         onChange={(event) => setSelectedServices((prevState)=>({...prevState,hour:event.target.value}))}
                                     >
-                                        {hour.map((hours) => (
-                                        <SelectItem key={hours} value={hours}>
-                                            {hours}
-                                        </SelectItem>
-                                        ))}
+                                        {hour.map((hours) => {
+                                            const isHourReserved = reservedHours[selectedServices.day] && reservedHours[selectedServices.day].includes(hours);
+                                            return (
+                                                <SelectItem key={hours} value={hours}  isDisabled={isHourReserved}>
+                                                    {hours}
+                                                </SelectItem>
+                                            );
+                                        })}
                                     </Select>
 
-                                    <Input
-                                        isDisabled
-                                        type="text"
-                                        placeholder="--/--/--"
-                                        className="max-w-xs p-4"
-                                        value={selectedServices.day}
-                                    />
                             </>
                     )
                     }
@@ -299,17 +375,22 @@ const Reserv = () => {
                     }
                 </div>
                 
-                <div className=' flex justify-end p-4'>
+                <div className=' flex gap-5 justify-end p-4'>
                     {IsProgress === 0 && <Button color="primary"  onClick={handleStep}>Continuar</Button>}
-                    {IsProgress === 50 && <Mercadopago id={selectedServices.userId} description={selectedServices.description} cost={selectedServices.cost} day={selectedServices.day} hour={selectedServices.hour} />}
+                    
+                    {IsProgress === 50 && !loading && <Button color="primary"  onClick={goBack}>Volver</Button>}
+                    
+                    {IsProgress === 50 && !loading && <Mercadopago id={selectedServices.userId} description={selectedServices.description} cost={selectedServices.cost} day={selectedServices.day} hour={selectedServices.hour} loading={setLoading} />}
+
+                    {IsProgress === 50 && loading && <Button color="primary" isLoading>Cargando</Button> }
+                    
+                    
                     {IsProgress === 150 && <Button color="primary"  onClick={finishBuy}>Terminar</Button>}
                 </div>
             </div>
-
-                <div>
-                    <Calendary setSelectedServices={setSelectedServices}/>
-                </div>
             </div>
+            }
+            
         </div>
     )
 }

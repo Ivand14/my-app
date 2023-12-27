@@ -1,8 +1,13 @@
 "use client"
 
+import 'react-toastify/dist/ReactToastify.css';
+
+import React, { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+
 import {Button} from "@nextui-org/react";
 import {Input} from "@nextui-org/react";
-import React from 'react'
+import NextLink from 'next/link'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from "next/navigation";
@@ -10,13 +15,15 @@ import { useRouter } from "next/navigation";
 const registerPage = () => {
 
     const{register,handleSubmit,formState:{errors}} = useForm()
+    
+    const[isRegister,setIsRegister] = useState(false)
 
     const router = useRouter()
     
     const onSubmit = handleSubmit(async(data)=>{
 
         if(data.password !== data.confirmPassword){
-            return alert('Las contraseñas no coinciden')
+            return toast.warning('Las contraseñas no coinciden')
         }
 
         const info = {
@@ -26,11 +33,11 @@ const registerPage = () => {
         }
 
         const response = await axios.post('/api/auth/register',info)
-        const ResponseData =  response.data
 
         console.log(response)
 
         if(response.statusText === 'OK'){
+            setIsRegister(true)
             router.push('/auth/login')
         }
 
@@ -40,6 +47,19 @@ const registerPage = () => {
     return (
         <div className="flex  items-center justify-center  h-screen w-screen">
             
+            <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+            />
+
             <form onSubmit={onSubmit} className=" mt-15  w-1/4 ">
                 
                 <div className="flex flex-col items-center mb-2 w-full">
@@ -100,9 +120,16 @@ const registerPage = () => {
                     className='mb-2'
                 />
                 
-                <Button color="primary" variant="shadow" type='submit' className="w-full">
-                    Registrarse
-                </Button>  
+                {
+                    !isRegister ? 
+                    <Button color="primary" variant="shadow" type='submit' className="w-full">
+                        Registrarse
+                    </Button>
+                    :
+                    <Button color="primary" variant="shadow" className="w-full" isLoading>Cargando</Button> 
+                }
+
+                <h3 className='mt-2 p-2 text-white'>Ya tenes una cuenta? <NextLink href={'/auth/login'} className='underline'>Iniciar sesión</NextLink></h3> 
             </form>
         </div>
     )
