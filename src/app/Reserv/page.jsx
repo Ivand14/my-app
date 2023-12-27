@@ -110,7 +110,7 @@ const Reserv = () => {
                 break;
         }
 
-        const savedUserInfo = JSON.parse(localStorage.getItem('userInfo'))
+        const savedUserInfo =  typeof window !== 'undefined' &&  JSON.parse(localStorage.getItem('userInfo'))
 
         if(savedUserInfo){
             setSelectedServices((prevState) => ({ ...prevState, userId:savedUserInfo.id }))
@@ -141,39 +141,34 @@ const Reserv = () => {
     
     
 
-    useEffect(()=>{
-        
-        const savedServices = JSON.parse(localStorage.getItem('services'))
-
-        if (savedServices) {
-            setSelectedServices(savedServices);
-        }
-        
-        const statusApproved = async() => {
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const savedServices = JSON.parse(localStorage.getItem('services'));
+    
+            if (savedServices) {
+                setSelectedServices(savedServices);
+            }
             
-            try {
-                
+            const statusApproved = async() => {
+                try {
                     const urlParams = new URLSearchParams(window.location.search);
                     const status = urlParams.get("status"); 
-
+    
                     if(status === 'approved'){
                         setStatusPay(status)
                     }
-                
-                
-            } catch (error) {
-                console.log(error)
+                } catch (error) {
+                    console.log(error)
+                }
             }
-            
+    
+            statusApproved()
         }
-
-        statusApproved()
-        
-    },[])
+    }, []);
     
     
 
-    const isAdmin = JSON.parse(localStorage.getItem('userInfo'))
+    const isAdmin = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userInfo'))
     
     
     
