@@ -4,6 +4,7 @@ CREATE TABLE "user" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "admin" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );
@@ -11,10 +12,11 @@ CREATE TABLE "user" (
 -- CreateTable
 CREATE TABLE "shift" (
     "id" TEXT NOT NULL,
-    "hour" INTEGER NOT NULL,
+    "hour" TEXT NOT NULL,
     "day" TEXT NOT NULL,
     "pay" BOOLEAN NOT NULL DEFAULT false,
     "cost" INTEGER NOT NULL,
+    "service" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "shift_pkey" PRIMARY KEY ("id")

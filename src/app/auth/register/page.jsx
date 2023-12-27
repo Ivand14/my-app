@@ -12,14 +12,14 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from "next/navigation";
 
-const registerPage = () => {
+const RegisterPage = () => {
 
     const{register,handleSubmit,formState:{errors}} = useForm()
     
     const[isRegister,setIsRegister] = useState(false)
 
     const router = useRouter()
-    
+    2
     const onSubmit = handleSubmit(async(data)=>{
 
         if(data.password !== data.confirmPassword){
@@ -135,4 +135,4 @@ const registerPage = () => {
     )
 }
 
-export default registerPage
+export default RegisterPage
