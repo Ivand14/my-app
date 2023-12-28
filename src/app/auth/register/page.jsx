@@ -32,7 +32,7 @@ const RegisterPage = () => {
             password:data.password
         }
 
-        const response = await axios.post('https://luquiando-barber.vercel.app/auth/register',info)
+        const response = await axios.post('/auth/register',info)
 
         console.log(response)
 
