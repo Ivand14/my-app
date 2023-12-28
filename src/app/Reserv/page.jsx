@@ -110,9 +110,7 @@ const Reserv = () => {
                 break;
         }
 
-        const savedUserInfo =   typeof window !== 'undefined' && localStorage.getItem('userInfo')
-        ? JSON.parse(localStorage.getItem('userInfo'))
-        : null;
+        const savedUserInfo =  typeof window !== 'undefined' &&  JSON.parse(localStorage.getItem('userInfo'))
 
         if(savedUserInfo){
             setSelectedServices((prevState) => ({ ...prevState, userId:savedUserInfo.id }))
@@ -145,9 +143,7 @@ const Reserv = () => {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const savedServices =  typeof window !== 'undefined' && localStorage.getItem('userInfo')
-            ? JSON.parse(localStorage.getItem('userInfo'))
-            : null;
+            const savedServices = JSON.parse(localStorage.getItem('services'));
     
             if (savedServices) {
                 setSelectedServices(savedServices);
@@ -172,9 +168,7 @@ const Reserv = () => {
     
     
 
-    const isAdmin =  typeof window !== 'undefined' && localStorage.getItem('userInfo')
-    ? JSON.parse(localStorage.getItem('userInfo'))
-    : null;
+    const isAdmin = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userInfo'))
     
     
     
