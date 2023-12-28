@@ -2,7 +2,7 @@
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 
 import {Button} from "@nextui-org/react";
@@ -20,6 +20,7 @@ const Login = () => {
   const router = useRouter()
   const[error,setError] = useState(null)
   const[isSingIn,setIsSingIn] = useState(false)
+  const [userData,setUserData] = useState(null)
 
   const onSubmit = handleSubmit(async (data) => {
     
@@ -42,10 +43,14 @@ const Login = () => {
 
     const responseUser = await axios.get(`http://localhost:3000/api/userData/${data.email}`);
 
-
-    localStorage.setItem('userInfo', JSON.stringify(responseUser.data))
+    setUserData(responseUser.data)
 
   })
+
+
+  useEffect(()=>{
+    localStorage.setItem('userInfo', JSON.stringify(userData))
+  },[userData])
 
   return (
     <div className="flex  items-center justify-center  h-screen w-screen">

@@ -1,6 +1,6 @@
 "use client"
 
-import {Button, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle} from "@nextui-org/react";
+import {Button, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle} from "@nextui-org/react";
 import React, { useState } from 'react'
 
 import NextLink from 'next/link'
@@ -16,7 +16,10 @@ const NavBar = () => {
         localStorage.clear()
     }
 
-    const isAdmin = JSON.parse(localStorage.getItem('userInfo'))
+    const isAdmin = typeof window !== 'undefined' && localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : null;
+
 
 
 return (
