@@ -15,7 +15,7 @@ const Dashboard = () => {
 
     useEffect(()=>{
         const getReservs = async() => {
-            const userInfo = window.JSON.parse(localStorage.getItem('userInfo'))
+            const userInfo = typeof window !== 'undefined' ? window.JSON.parse(localStorage.getItem('userInfo')) : []
             const response = await axios.get(`http://localhost:3000/api/getReservs/${userInfo.id}`)
 
             setPayData(response.data)
@@ -28,7 +28,7 @@ const Dashboard = () => {
         getReservs()
     },[])
 
-    const isAdmin = window.JSON.parse(localStorage.getItem('userInfo'))
+    const isAdmin = typeof window !== 'undefined' ? window.JSON.parse(localStorage.getItem('userInfo')) : []
 
 
     return (
