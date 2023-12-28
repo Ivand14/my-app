@@ -28,7 +28,11 @@ const Dashboard = () => {
         getReservs()
     },[])
 
-    const isAdmin = JSON.parse(localStorage.getItem('userInfo'))
+    let isAdmin = false;
+
+    if (typeof window !== 'undefined') {
+        isAdmin = JSON.parse(localStorage.getItem('userInfo'));
+    }
 
     return (
         <div className='flex-col justify-center items-center' >
