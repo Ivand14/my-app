@@ -19,7 +19,7 @@ const Mercadopago = ({description,cost,loading}) => {
 
         try {
             loading(true)
-            const responseOrder = await axios.post('http://localhost:3000/api/mercadopago/createOrder',service)
+            const responseOrder = await axios.post('https://luquiando-barber.vercel.app/api/mercadopago/createOrder',service)
             const data = responseOrder.data.response.init_point
             window.location.href = data
             
