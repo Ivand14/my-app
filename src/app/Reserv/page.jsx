@@ -52,7 +52,10 @@ const Reserv = () => {
     const hour = ["09:00","10:00","11:00","12:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00"]
 
     const handleStep = () => {
-        localStorage.setItem('services', JSON.stringify(selectedServices));
+
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('services', JSON.stringify(selectedServices));
+        }
     
         if (selectedServices.description !== '' && selectedServices.hour !== '' && selectedServices.day !== '' && statusPay === '') {
             setIsProgress(50);
@@ -66,9 +69,13 @@ const Reserv = () => {
 
     const finishBuy = async() => {
         const successOrder = await axios.post('http://localhost:3000/api/mercadopago/success',selectedServices)
+        
         if(successOrder.status === 200){
-            localStorage.removeItem('services')
-            localStorage.removeItem('progress')
+            
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem('services')
+                localStorage.removeItem('progress')
+            }
             
             setIsProgress(0)
             router.push('/dashboard')
@@ -110,7 +117,10 @@ const Reserv = () => {
                 break;
         }
 
-        const savedUserInfo =  typeof window !== 'undefined' &&  JSON.parse(localStorage.getItem('userInfo'))
+        let savedUserInfo;
+        if (typeof window !== 'undefined') {
+            savedUserInfo = JSON.parse(localStorage.getItem('userInfo'))
+        }
 
         if(savedUserInfo){
             setSelectedServices((prevState) => ({ ...prevState, userId:savedUserInfo.id }))
@@ -143,7 +153,10 @@ const Reserv = () => {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const savedServices = JSON.parse(localStorage.getItem('services'));
+            let savedServices;
+            if (typeof window !== 'undefined') {
+                savedServices = JSON.parse(localStorage.getItem('services'));
+            }
     
             if (savedServices) {
                 setSelectedServices(savedServices);
@@ -167,8 +180,10 @@ const Reserv = () => {
     }, []);
     
     
-
-    const isAdmin = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('userInfo'))
+    let isAdmin;
+    if (typeof window !== 'undefined') {
+        isAdmin = JSON.parse(localStorage.getItem('userInfo'))
+    }
     
     
     
@@ -190,7 +205,7 @@ const Reserv = () => {
                 />
             }
 
-            {isAdmin.admin === true ?
+            {isAdmin?.admin === true ?
                 <Clients/>
                     :
                 <div className="flex justify-between p-4 mt-5 ">
@@ -305,7 +320,7 @@ const Reserv = () => {
                                     </div>
 
                                     <Select 
-                                        label={localStorage.getItem('services') ? selectedServices.hour : 'Seleccionar hora' }
+                                        label={localStorage?.getItem('services') ? selectedServices.hour : 'Seleccionar hora' }
                                         className="max-w-xs p-4 w-full" 
                                         value={selectedServices.hour}
                                         onChange={(event) => setSelectedServices((prevState)=>({...prevState,hour:event.target.value}))}
