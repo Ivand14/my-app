@@ -19,7 +19,7 @@ const Mercadopago = ({description,cost,loading}) => {
 
         try {
             loading(true)
-            const responseOrder = await axios.post('/api/mercadopago/createOrder',service)
+            const responseOrder = await axios.post('ep-raspy-term-16075401-pooler.us-east-1.postgres.vercel-storage.com/api/mercadopago/createOrder',service)
             const data = responseOrder.data.response.init_point
             window.location.href = data
             

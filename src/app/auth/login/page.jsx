@@ -31,7 +31,7 @@ const Login = () => {
     })
 
     if(response.ok){
-      router.push('/dashboard')
+      router.push('ep-raspy-term-16075401-pooler.us-east-1.postgres.vercel-storage.com/dashboard')
       setIsSingIn(true)
     }
     

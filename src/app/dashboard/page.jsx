@@ -19,12 +19,12 @@ const Dashboard = () => {
             if (typeof window !== 'undefined') {
                 userInfo = JSON.parse(localStorage.getItem('userInfo'))
             }
-            const response = await axios.get(`/api/getReservs/${userInfo.id}`)
+            const response = await axios.get(`ep-raspy-term-16075401-pooler.us-east-1.postgres.vercel-storage.com/api/getReservs/${userInfo.id}`)
 
             setPayData(response.data)
         }
         const getAll = async() =>{
-            const response = await axios.get('/api/getHours')
+            const response = await axios.get('ep-raspy-term-16075401-pooler.us-east-1.postgres.vercel-storage.com/api/getHours')
             setUserData(response.data)
         }
         getAll()

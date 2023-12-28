@@ -32,7 +32,7 @@ const RegisterPage = () => {
             password:data.password
         }
 
-        const response = await axios.post('/auth/register',info)
+        const response = await axios.post('ep-raspy-term-16075401-pooler.us-east-1.postgres.vercel-storage.com/auth/register',info)
 
         console.log(response)
 
