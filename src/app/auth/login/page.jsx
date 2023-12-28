@@ -31,7 +31,7 @@ const Login = () => {
     })
 
     if(response.ok){
-      router.push('/dashboard')
+      router.push('https://luquiando-barber.vercel.app/dashboard')
       setIsSingIn(true)
     }
     
@@ -41,7 +41,7 @@ const Login = () => {
     }
 
 
-    const responseUser = await axios.get(`/api/userData/${data.email}`);
+    const responseUser = await axios.get(`https://luquiando-barber.vercel.app/api/userData/${data.email}`);
 
     setUserData(responseUser.data)
 

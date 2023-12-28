@@ -68,7 +68,7 @@ const Reserv = () => {
     }
 
     const finishBuy = async() => {
-        const successOrder = await axios.post('ep-raspy-term-16075401-pooler.us-east-1.postgres.vercel-storage.com/api/mercadopago/success',selectedServices)
+        const successOrder = await axios.post('https://luquiando-barber.vercel.app/api/mercadopago/success',selectedServices)
         
         if(successOrder.status === 200){
             
@@ -129,7 +129,7 @@ const Reserv = () => {
         setSelectedServices((prevState) => ({ ...prevState, cost }));
 
         const getHours = async () => {
-            const response = await axios.get('ep-raspy-term-16075401-pooler.us-east-1.postgres.vercel-storage.com/api/getHours');
+            const response = await axios.get('https://luquiando-barber.vercel.app/api/getHours');
             const hours = response.data;
     
             const updatedHours =  hours.reduce((acc, hour) => {

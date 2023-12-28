@@ -16,7 +16,7 @@ export const Clients = () => {
         }, 2000);
 
         const getClients = async() =>{
-            const response = await axios.get('ep-raspy-term-16075401-pooler.us-east-1.postgres.vercel-storage.com/api/getClients')
+            const response = await axios.get('https://luquiando-barber.vercel.app/api/getClients')
             setUserInfo(response.data)
         }
 
