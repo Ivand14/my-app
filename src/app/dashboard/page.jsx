@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useEffect, useState } from 'react'
 
 import NavBar from '@/components/navbar/Navbar';
@@ -15,7 +13,10 @@ const Dashboard = () => {
 
     useEffect(()=>{
         const getReservs = async() => {
-            const userInfo = typeof window !== 'undefined' && window?.JSON.parse(localStorage.getItem('userInfo')) ? window?.JSON.parse(localStorage.getItem('userInfo')) : []
+            let userInfo;
+            if (typeof window !== 'undefined') {
+                userInfo = JSON.parse(localStorage.getItem('userInfo'))
+            }
             const response = await axios.get(`http://localhost:3000/api/getReservs/${userInfo.id}`)
 
             setPayData(response.data)
@@ -28,10 +29,10 @@ const Dashboard = () => {
         getReservs()
     },[])
 
-    const isAdmin = typeof window !== 'undefined' && window?.JSON.parse(localStorage.getItem('userInfo')) ? window?.JSON.parse(localStorage.getItem('userInfo')) : []
-
-    console.log('dashboard',isAdmin)
-
+    let isAdmin;
+    if (typeof window !== 'undefined') {
+        isAdmin = JSON.parse(localStorage.getItem('userInfo'))
+    }
 
     return (
         <div className='flex-col justify-center items-center' >

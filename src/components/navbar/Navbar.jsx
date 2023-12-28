@@ -16,7 +16,7 @@ const NavBar = () => {
         localStorage.clear()
     }
 
-    const isAdmin = typeof window !== 'undefined' ? window.JSON.parse(localStorage.getItem('userInfo')) : []
+    const isAdmin = JSON.parse(localStorage.getItem('userInfo'))
 
 
 return (
