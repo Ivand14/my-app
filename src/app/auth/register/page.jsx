@@ -32,7 +32,7 @@ const RegisterPage = () => {
             password:data.password
         }
 
-        const response = await axios.post('/api/auth/register',info)
+        const response = await axios.post('https://my-rg2ekmq7q-ivand14.vercel.app/auth/register',info)
 
         console.log(response)
 

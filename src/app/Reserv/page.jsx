@@ -185,6 +185,10 @@ const Reserv = () => {
         isAdmin = JSON.parse(localStorage.getItem('userInfo'))
     }
     
+    let services;
+    if (typeof window !== 'undefined') {
+        services = JSON.parse(localStorage.getItem('service'))
+    }
     
     
     return (
@@ -267,7 +271,7 @@ const Reserv = () => {
                         IsProgress === 0 && (
                             <>
                                 <Select 
-                                    label={localStorage.getItem('services') ? selectedServices.description : 'Seleccionar servicio' }
+                                    label={services ? selectedServices.description : 'Seleccionar servicio' }
                                     className="max-w-xs p-4 w-full" 
                                     value={selectedServices.description}
                                     onChange={(event) => setSelectedServices((prevState) => ({...prevState, description: event.target.value}))}
@@ -320,7 +324,7 @@ const Reserv = () => {
                                     </div>
 
                                     <Select 
-                                        label={localStorage?.getItem('services') ? selectedServices.hour : 'Seleccionar hora' }
+                                        label={services ? selectedServices.hour : 'Seleccionar hora' }
                                         className="max-w-xs p-4 w-full" 
                                         value={selectedServices.hour}
                                         onChange={(event) => setSelectedServices((prevState)=>({...prevState,hour:event.target.value}))}
