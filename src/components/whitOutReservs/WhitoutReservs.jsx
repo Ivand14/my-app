@@ -15,12 +15,15 @@ const WhitoutReservs = () => {
 
     }, [])
     
-    const isAdmin = JSON.parse(localStorage.getItem('userInfo'))
+    let isAdmin;
+    if (typeof window !== 'undefined') {
+        isAdmin = JSON.parse(localStorage.getItem('userInfo'))
+    }
 
     return (
         <Table aria-label="Example empty table" className="mt-10 w-full px-3">
         {
-            isAdmin.admin === true ? 
+            isAdmin?.admin === true ? 
             <TableHeader>
                 <TableColumn>CLIENTE</TableColumn>
                 <TableColumn>DESCRIPCION</TableColumn>
@@ -38,7 +41,7 @@ const WhitoutReservs = () => {
             </TableHeader>
         }
         {
-            isAdmin.admin === true ?
+            isAdmin?.admin === true ?
             isLoading ? <TableBody emptyContent={<Spinners/>}>{[]}</TableBody> : <TableBody emptyContent={"No hay ninguna reserva"}>{[]}</TableBody>
             :
             isLoading ? <TableBody emptyContent={<Spinners/>}>{[]}</TableBody> : <TableBody emptyContent={"No tienes ninguna reserva"}>{[]}</TableBody>
