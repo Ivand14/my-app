@@ -34,6 +34,8 @@ const RegisterPage = () => {
 
         const response = await axios.post('https://luquiando-barber.vercel.app/auth/register',info)
 
+        console.log(response)
+
 
         if(response.statusText === 'OK'){
             setIsRegister(true)
