@@ -23,8 +23,6 @@ const Login = () => {
   const [userData,setUserData] = useState(null)
 
   const onSubmit = handleSubmit(async (data) => {
-
-    console.log('data',data)
     
     const response = await signIn('credentials',{
       email:data.email,
@@ -32,7 +30,7 @@ const Login = () => {
       redirect:false
     })
 
-    console.log('response',response.data)
+    console.log('response',response)
 
     if(response.ok){
       router.push('https://luquiando-barber.vercel.app/dashboard')
