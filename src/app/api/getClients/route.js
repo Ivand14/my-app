@@ -5,7 +5,6 @@ export async function GET(){
     
     const getAllClients = await prisma.user.findMany()
 
-    console.log(getAllClients)
 
     return NextResponse.json(getAllClients,{status:200})
     
