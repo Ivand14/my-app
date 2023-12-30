@@ -51,7 +51,9 @@ const Login = () => {
 
 
   useEffect(()=>{
-    localStorage.setItem('userInfo', JSON.stringify(userData))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('userInfo', JSON.stringify(userData))
+  }
   },[userData])
 
   return (
