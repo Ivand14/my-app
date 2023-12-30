@@ -47,9 +47,10 @@ const Login = () => {
 
     setUserData(responseUser.data)
 
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('userInfo', JSON.stringify(userData))
-    }
+    console.log(userData)
+
+    localStorage.setItem('userInfo', JSON.stringify(userData))
+
   })
 
 
