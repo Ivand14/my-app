@@ -47,14 +47,12 @@ const Login = () => {
 
     setUserData(responseUser.data)
 
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('userInfo', JSON.stringify(userData))
+    }
   })
 
 
-  useEffect(()=>{
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('userInfo', JSON.stringify(userData))
-  }
-  },[userData])
 
   return (
     <div className="flex  items-center justify-center  h-screen w-screen">
