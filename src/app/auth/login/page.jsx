@@ -32,7 +32,7 @@ const Login = () => {
 
     console.log(response)
 
-    if(response.status === 200){
+    if(response.ok){
       router.push('https://luquiando-barber.vercel.app/dashboard')
       setIsSingIn(true)
     }
@@ -44,8 +44,6 @@ const Login = () => {
 
 
     const responseUser = await axios.get(`https://luquiando-barber.vercel.app/api/userData/${data.email}`);
-
-    console.log(responseUser)
 
     setUserData(responseUser.data)
 
