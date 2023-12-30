@@ -19,7 +19,7 @@ const RegisterPage = () => {
     const[isRegister,setIsRegister] = useState(false)
 
     const router = useRouter()
-    2
+    
     const onSubmit = handleSubmit(async(data)=>{
 
         if(data.password !== data.confirmPassword){
