@@ -37,7 +37,7 @@ const RegisterPage = () => {
         console.log(response)
 
 
-        if(response.statusText === 'OK'){
+        if(response.status === 200){
             setIsRegister(true)
             router.push('https://luquiando-barber.vercel.app/api/auth/login')
         }
