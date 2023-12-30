@@ -34,7 +34,6 @@ const RegisterPage = () => {
 
         const response = await axios.post('https://luquiando-barber.vercel.app/api/auth/register',info)
 
-        console.log(response)
 
 
         if(response.status === 200){
