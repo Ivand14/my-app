@@ -33,8 +33,8 @@ const Login = () => {
     console.log('response',response)
 
     if(response.ok){
-      setIsSingIn(true)
       router.push('https://luquiando-barber.vercel.app/dashboard')
+      setIsSingIn(true)
     }
     
     if(response.error){
