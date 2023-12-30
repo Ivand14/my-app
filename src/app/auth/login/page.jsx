@@ -30,7 +30,7 @@ const Login = () => {
       redirect:false
     })
 
-    if(response.ok){
+    if(response.status === 200){
       router.push('https://luquiando-barber.vercel.app/dashboard')
       setIsSingIn(true)
     }
