@@ -32,14 +32,14 @@ const RegisterPage = () => {
             password:data.password
         }
 
-        const response = await axios.post('http://luquiando-barber.vercel.app/auth/register',info)
+        const response = await axios.post('https://luquiando-barber.vercel.app/api/auth/register',info)
 
         console.log(response)
 
 
         if(response.statusText === 'OK'){
             setIsRegister(true)
-            router.push('http://luquiando-barber.vercel.app/auth/login')
+            router.push('https://luquiando-barber.vercel.app/api/auth/login')
         }
 
     })
