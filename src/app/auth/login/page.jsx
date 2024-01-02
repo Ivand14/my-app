@@ -30,7 +30,6 @@ const Login = () => {
       redirect:false
     })
 
-    console.log('response',response)
 
     if(response.status === 200){
       router.push('https://luquiando-barber.vercel.app/dashboard')
