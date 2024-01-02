@@ -19,12 +19,12 @@ const Dashboard = () => {
             if (typeof window !== 'undefined') {
                 userInfo = JSON.parse(localStorage.getItem('userInfo'))
             }
-            const response = await axios.get(`https://luquiando-barber.vercel.app/api/getReservs/${userInfo.id}`)
+            const response = await axios.get(`/api/getReservs/${userInfo.id}`)
 
             setPayData(response.data)
         }
         const getAll = async() =>{
-            const response = await axios.get('https://luquiando-barber.vercel.app/api/getHours')
+            const response = await axios.get('/api/getHours')
             setUserData(response.data)
         }
         getAll()

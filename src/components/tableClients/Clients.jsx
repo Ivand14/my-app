@@ -16,7 +16,7 @@ export const Clients = () => {
         }, 2000);
 
         const getClients = async() =>{
-            const response = await axios.get('https://luquiando-barber.vercel.app/api/getClients')
+            const response = await axios.get('/api/getClients')
             setUserInfo(response.data)
         }
 

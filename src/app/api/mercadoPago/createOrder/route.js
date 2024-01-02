@@ -26,8 +26,8 @@ export async function POST(request){
             notification_url:'https://4d39-191-81-188-192.ngrok.io/api/mercadopago/webhook',
             
             back_urls:{
-                success:'https://luquiando-barber.vercel.app/Reserv',
-                failure:'https://luquiando-barber.vercel.app/Reserv'
+                success:'/Reserv',
+                failure:'/Reserv'
             },
 
         })

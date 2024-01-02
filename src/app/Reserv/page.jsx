@@ -68,7 +68,7 @@ const Reserv = () => {
     }
 
     const finishBuy = async() => {
-        const successOrder = await axios.post('https://luquiando-barber.vercel.app/api/mercadopago/success',selectedServices)
+        const successOrder = await axios.post('/api/mercadopago/success',selectedServices)
         
         if(successOrder.status === 200){
             
@@ -129,7 +129,7 @@ const Reserv = () => {
         setSelectedServices((prevState) => ({ ...prevState, cost }));
 
         const getHours = async () => {
-            const response = await axios.get('https://luquiando-barber.vercel.app/api/getHours');
+            const response = await axios.get('/api/getHours');
             const hours = response.data;
     
             const updatedHours =  hours.reduce((acc, hour) => {
