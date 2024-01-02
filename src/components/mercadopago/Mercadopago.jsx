@@ -23,6 +23,7 @@ const Mercadopago = ({description,cost,loading}) => {
             const data = responseOrder.data.response.init_point
             window.location.href = data
             
+            console.log(responseOrder)
 
         } catch (error) {
             console.log(error)
