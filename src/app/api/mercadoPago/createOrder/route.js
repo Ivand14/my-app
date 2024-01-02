@@ -5,6 +5,7 @@ export async function POST(request){
     
     const data = await request.json()
 
+    console.log(data)
     
     mercadopago.configure({
         access_token:process.env.MERCADOPAGO_ACCESSTOKEN
