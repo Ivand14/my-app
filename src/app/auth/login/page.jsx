@@ -24,7 +24,6 @@ const Login = () => {
 
   const onSubmit = handleSubmit(async (data) => {
 
-    console.log(data)
     
     const response = await signIn('credentials',{
       email:data.email,
@@ -35,7 +34,7 @@ const Login = () => {
 
 
     if(response.status === 200){
-      router.push('/dashboard')
+      router.push('/Reserv')
       setIsSingIn(true)
     }
     
