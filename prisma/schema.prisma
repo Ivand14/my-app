@@ -7,11 +7,9 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = "postgres://default:kOuEzgq4HJp9@ep-shrill-sky-91285745-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb?pgbouncer=true&connect_timeout=15"// uses connection pooling
-  directUrl = "postgres://default:kOuEzgq4HJp9@ep-shrill-sky-91285745.us-east-1.postgres.vercel-storage.com:5432/verceldb" // uses a direct connection
-  
+  url = env("POSTGRES_URL_NON_POOLING_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING_URL_NON_POOLING") // uses a direct connection
 }
-
 model user {
   id String @id @default(uuid())
   name String @unique
