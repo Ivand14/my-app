@@ -31,7 +31,6 @@ const Login = () => {
       redirect:false
     })
 
-    console.log(signIn)
 
     if(response.status === 200){
       router.push('/dashboard')
@@ -46,7 +45,6 @@ const Login = () => {
 
     const responseUser = await axios.get(`/api/userData/${data.email}`);
 
-    console.log(responseUser)
 
     setUserData(responseUser.data)
     
