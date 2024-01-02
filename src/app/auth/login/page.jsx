@@ -45,6 +45,8 @@ const Login = () => {
 
     const responseUser = await axios.get(`https://luquiando-barber.vercel.app/api/userData/${data.email}`);
 
+    console.log(responseUser)
+
     setUserData(responseUser.data)
 
     console.log(userData)
