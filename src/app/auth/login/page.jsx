@@ -49,12 +49,15 @@ const Login = () => {
 
     setUserData(responseUser.data)
 
-    console.log(userData)
-
-    localStorage.setItem('userInfo', JSON.stringify(userData))
-
+    
   })
+  
+  console.log(userData)
 
+
+  useEffect(()=>{
+    localStorage.setItem('userInfo', JSON.stringify(userData))
+  },[userData])
 
 
   return (
