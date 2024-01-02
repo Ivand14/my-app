@@ -34,7 +34,7 @@ const Login = () => {
 
 
     if(response.status === 200){
-      router.push('/Reserv')
+      router.push('/dashboard')
       setIsSingIn(true)
     }
     
