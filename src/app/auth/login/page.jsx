@@ -34,10 +34,10 @@ const Login = () => {
 
 
 
-    router.push('/dashboard')
-    setIsSingIn(true)
-    // if(response.status === 200){
-    // }
+    if(response.status === 200){
+      router.push('/dashboard')
+      setIsSingIn(true)
+    }
     
     if(response.error){
       setError(response.error)
