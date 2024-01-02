@@ -35,7 +35,7 @@ const authOptions = {
         })
     ],
     pages:{
-        signIn:"https://luquiando-barber.vercel.app/auth/login"
+        signIn:"/auth/login"
     }
 }
 
