@@ -38,25 +38,24 @@ const Login = () => {
       setError(response.error)
       toast.error(response.error)
     }else{
-      console.log('deberia ir al dashboard')
-      router.push('https://luquiando-barber.vercel.app/dashboard')
+      router.push('/dashboard')
       setIsSingIn(true)
     }
 
 
-    // const responseUser = await axios.get(`/api/userData/${data.email}`);
+    const responseUser = await axios.get(`/api/userData/${data.email}`);
 
 
-    // setUserData(responseUser.data)
+    setUserData(responseUser.data)
     
   })
   
 
-  // useEffect(() => {
-  //   if (userData) {
-  //     localStorage.setItem('userInfo', JSON.stringify(userData));
-  //   }
-  // }, [userData]);
+  useEffect(() => {
+    if (userData) {
+      localStorage.setItem('userInfo', JSON.stringify(userData));
+    }
+  }, [userData]);
 
 
   return (
