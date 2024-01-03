@@ -36,6 +36,7 @@ const Login = () => {
 
     if(response.ok){
       console.log('deberia ir al dashboard')
+      window.location.href = 'https://luquiando-barber.vercel.app/dashboard'
       setIsSingIn(true)
     }
     
