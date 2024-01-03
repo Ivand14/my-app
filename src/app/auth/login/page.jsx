@@ -31,6 +31,8 @@ const Login = () => {
       redirect:false
     })
 
+    console.log(response)
+
 
     if(response.ok){
       console.log('deberia ir al dashboard')
