@@ -33,6 +33,7 @@ const Login = () => {
 
 
     if(response.status === 200){
+      console.log('deberia ir al dashboard')
       router.push('/dashboard')
       setIsSingIn(true)
     }
