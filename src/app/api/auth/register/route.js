@@ -44,8 +44,6 @@ export async function POST(request){
                 password:hashPass
             }
         })
-        console.log(data)
-        console.log(newUser)
 
         const{password: _, ...user} = newUser
 
