@@ -36,7 +36,7 @@ const Login = () => {
 
     if(response.ok){
       console.log('deberia ir al dashboard')
-      router.forward('https://luquiando-barber.vercel.app/dashboard')
+      router.push('https://luquiando-barber.vercel.app/dashboard')
       setIsSingIn(true)
     }
     
