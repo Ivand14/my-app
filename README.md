@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Luquiando Barber
 
-First, run the development server:
+Es un proyecto creado con NextJs y Prisma. En esta aplicacion web se puede :
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Registrar usuarios
+- Iniciar sesion
+- Reservar
+- Pagar la Reserva con Mercado Pago
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Cuando uno Paga el turno ya es reservado y el horario que solicito se deshabilita en la aplicación
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Tecnologias que se utilizaron
+Para este proyecto se uso :
+- NextJs
+- Prisma con postgresql para el manejo de la base de datos y almacenamiento de la informacion
+- NextAuth para el manejo de autenticacion a traves de creedenciales y un middleware para proteger las rutas, en donde si o si hay que estar autenticado para ingresar.
+- NextUi para el manejo de componentes
+- Mercado Pago para pagar las reservas
+- React calendar para seleccionar las fechas
+- React hook form para manejar los formularios de registro y login
+- TailwindCss para el diseño de la aplicacion
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Como usar la aplicacion en localhost
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para correr este proyecto primero debes clonarlo, luego de clonarlo debes instalar todas las dependencias con npm install.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Las variables de entorno que debes utilizar son: 
 
-## Deploy on Vercel
+`DATABASE_URL` esta variable es para la base de datos postgresql
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`MERCADOPAGO_ACCESSTOKEN` para poder usar la api de prueba de mercado pago
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`NEXTAUTH_URL` es la url de tu proyecto por ejemplo : http://localhost:3000
+
+`NEXTAUTH_SECRET` hace referencia a una contraseña.
