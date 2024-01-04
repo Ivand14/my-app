@@ -7,8 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("BARBER_PRISMA_URL") // uses connection pooling
-  directUrl = env("BARBER_URL_NON_POOLING") // uses a direct connection
+  url = env("DATABASE_URL")
 }
 
 model user {
